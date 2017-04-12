@@ -15,6 +15,7 @@
 </head>
 
 <body>
+	<div class="container">
   <form class="form-horizontal" method = "POST">
    <div class="form-group">
     <label for="inputName3" class="col-sm-2 control-label">Name</label>
@@ -40,7 +41,8 @@
     </div>
   </div>
 </form>
+	</div>
 </body>
-<script src="http://code.jquery.com/jquery.js"></script>
+<script src="https://code.jquery.com/jquery.js"></script>
   <script src="js/bootstrap.min.js"></script>
 </html>
