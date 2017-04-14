@@ -51,28 +51,25 @@
   <script src="js/bootstrap.min.js"></script>
   <script type="text/javascript">
 $(document).ready(function(){ 
- 
- 
- $("#register").click(function() {
+  $("#register").click(function() {
+
 var name = $("#name").val();
 var email = $("#email").val();
-var number = $("#number").val();
-if (name == '' || email == '' || number == '' ) {
-alert("Please fill all fields...!!!!!!");
-} else {
-$.post("register.php", {
-name: name,
-email: email,
-number: number
-}, function(data) {
-//if (data == 'You have Successfully Registered.....') {
-//$("form")[0].reset();
-//}
-alert(data);
-});
-}
+var number = $("#number").val();	  
+	  
+ $.ajax({
+    url: 'register.php',
+    type: 'POST',
+    data: { name: name, email : email, number : number} ,
+    success: function (response) {
+        console.log(response.status);
+    },
+    error: function () {
+        console.log("error");
+    }
 });
  
+});	
+
 }); 
-</script>
 </html>
