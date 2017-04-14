@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 $$vcap_services = json_decode($_ENV["VCAP_SERVICES" ]);
 $db = $vcap_services->{'mysql-5.5'}[0]->credentials;
 $mysql_database = $db->name;
