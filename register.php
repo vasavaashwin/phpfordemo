@@ -9,11 +9,12 @@ $mysql_server_name =$db->host . ':' . $db->port;
 $mysql_username = $db->username; 
 $mysql_password = $db->password; 
 
-$con = mysql_connect($mysql_server_name, $mysql_username, $mysql_password);
-if (!$con){
-    die ('connection failed' . mysql_error());
+$mysqli = new mysqli($mysql_server_name, $mysql_username, $mysql_password, $mysql_database);
+if ($mysqli->connect_errno) {
+    echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
+    die();
 }
-mysql_select_db($mysql_database,$con);   
+   
 $name=$_POST['name']; // Fetching Values from URL.
 $email=$_POST['email'];
 $number= $_POST['number']; 
@@ -27,7 +28,7 @@ $data = mysql_num_rows($result);
 if(($data)==0){ */
 $strsq0 = "INSERT INTO user ( name, email, mobile_number,social_profile,status) VALUES
 ('$name', '$email', '$number','facebook',1);";
-$result0 = mysql_query ( $strsq0 );
+$result0 = $mysqli->query ( $strsq0 );
 if ($result0) {
 	echo "insert success!";
 } else {
@@ -40,5 +41,5 @@ echo "This email is already registered, Please try another email...";
 }
 */
 
-mysql_close();
+ mysqli_close();
 ?>
