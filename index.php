@@ -9,7 +9,8 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
   <!-- Bootstrap -->
   <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
-   
+   <script src="https://code.jquery.com/jquery.js"></script>
+  <script src="js/bootstrap.min.js"></script>
 </head>
 
 <body>
@@ -19,57 +20,60 @@
 	<div class="container">
 <div class="row">
 
-  <form class="form-horizontal" method = "POST">
+  
    <div class="form-group">
     <label for="inputName3" class="col-sm-2 control-label">Name</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="inputName3" placeholder="Name" id="name">
+      <input type="text" class="form-control" id="inputName3" placeholder="Name" name="name">
     </div>
   </div>
   <div class="form-group">
     <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
     <div class="col-sm-10">
-      <input type="email" class="form-control" id="inputEmail3" placeholder="Email" id="email">
+      <input type="email" class="form-control" id="inputEmail3" placeholder="Email" name="email">
     </div>
   </div>
  <div class="form-group">
     <label for="inputNumber3" class="col-sm-2 control-label">Number</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="inputNumber3" placeholder="Number" id="number">
+      <input type="text" class="form-control" id="inputNumber3" placeholder="Number" name="number">
     </div>
   </div>
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
-      <button type="submit" id="register" class="btn btn-default">Let's Begin</button>
+      <button type="button" id="register" class="btn btn-default">Let's Begin</button>
     </div>
   </div>
-</form>
+
 	</div>
 	</div>
 </body>
-<script src="https://code.jquery.com/jquery.js"></script>
-  <script src="js/bootstrap.min.js"></script>
+
   <script type="text/javascript">
 $(document).ready(function(){ 
-  $("#register").click(function() {
+  $("#register").click(function() {	  
 
-var name = $("#name").val();
-var email = $("#email").val();
-var number = $("#number").val();	  
-	  
+var postForm = { //Fetch form data
+            'name'     :  $('input[name=name]').val(),
+			'email'     :  $('input[name=email]').val(),
+			'number'     : $('input[name=number]').val(),
+        };
+	console.log(postForm);
  $.ajax({
     url: 'register.php',
     type: 'POST',
-    data: { name: name, email : email, number : number} ,
-    success: function (response) {
-        console.log(response.status);
+	dataType  : 'json',
+    data: postForm,
+    success: function (response) {		
+        console.log(response);
     },
-    error: function () {
-        console.log("error");
-    }
+    error: function(jqXHR, textStatus, errorThrown) {
+           console.log(textStatus, errorThrown);
+        }
 });
  
 });	
 
 }); 
+</script>
 </html>
