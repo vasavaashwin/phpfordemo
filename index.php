@@ -65,9 +65,9 @@ name: name,
 email: email,
 number: number
 }, function(data) {
-if (data == 'You have Successfully Registered.....') {
-$("form")[0].reset();
-}
+//if (data == 'You have Successfully Registered.....') {
+//$("form")[0].reset();
+//}
 alert(data);
 });
 }
