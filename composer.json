@@ -1,8 +1,9 @@
 {
   "require": {
-    "ext-pgsql": "*",
-	 "ext-mysqli": "*",
-     "ext-pdo": "*",
-     "ext-pdo_mysql": "*"
+    "ext-pdo": "*",
+	"ext-pgsql": "*",
+	"ext-mysql": "*",
+	"ext-mysqli": "*",
+    "ext-pdo_mysql": "*"
   }
 }
