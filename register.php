@@ -13,7 +13,12 @@ define("APP_DB_PASSWORD", "xxxx");
 
 // getting VCAP configuration
 $services = getenv("VCAP_SERVICES");
+print '<pre>';
+print_r($services);
+print 'service';
 $services_json = json_decode($services, true);
+print_r($services_json);
+exit;
 $pgsql_config = $services_json["postgresql-9.1"][0]["credentials"];
 
 define("APP_DB_SCHEMA", $pgsql_config["name"]);
