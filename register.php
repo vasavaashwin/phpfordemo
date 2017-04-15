@@ -18,7 +18,7 @@ $services_json = json_decode($services, true);
 $pgsql_config = $services_json["compose-for-postgresql"][0]["credentials"];
 
 define("APP_DB_SCHEMA", $pgsql_config["name"]);
-define("APP_DB_STRING", $pgsql_config["uri_cli"])
+define("APP_DB_STRING", $pgsql_config["uri"])
 //define("APP_DB_HOST", $pgsql_config["host"]);
 //define("APP_DB_PORT", $pgsql_config["port"]);
 //define("APP_DB_USERNAME", $pgsql_config["user"]);
@@ -26,12 +26,19 @@ define("APP_DB_STRING", $pgsql_config["uri_cli"])
 }
 
 //$dbConnectionString = "host=" . APP_DB_HOST . " port=" . APP_DB_PORT . " dbname=" . APP_DB_SCHEMA . " user=" . APP_DB_USERNAME . " password=" . APP_DB_PASSWORD;
-$dbConnectionString = APP_DB_STRING;
-$dbConnection = pg_connect($dbConnectionString);
-
-if (!$dbConnection) {
-    print("Connection Failed.");
-    exit;
+$dsn = APP_DB_STRING;
+ 
+try{
+	// create a PostgreSQL database connection
+	$conn = new PDO($dsn);
+ 
+	// display a message if connected to the PostgreSQL successfully
+	if($conn){
+		echo "Connected to the <strong>$db</strong> database successfully!";
+	}
+}catch (PDOException $e){
+	// report error message
+	echo $e->getMessage();
 }
 
 /*
