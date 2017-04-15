@@ -4,31 +4,29 @@ ini_set('display_errors', 1);
 if (getenv("VCAP_SERVICES")===false) {
 $db = 'XXXX';
 define("APP_DB_SCHEMA", $db);
-define("APP_DB_HOST", 'xxxx');
-define("APP_DB_PORT", "xxxx");
-define("APP_DB_USERNAME", 'xxxx');
-define("APP_DB_PASSWORD", "xxxx");
+define("APP_DB_STRING", 'xxxx');
+//define("APP_DB_HOST", 'xxxx');
+//define("APP_DB_PORT", "xxxx");
+//define("APP_DB_USERNAME", 'xxxx');
+//define("APP_DB_PASSWORD", "xxxx");
 
 } else {
 
 // getting VCAP configuration
 $services = getenv("VCAP_SERVICES");
-print '<pre>';
-print_r($services);
-print 'service';
 $services_json = json_decode($services, true);
-print_r($services_json);
-exit;
-$pgsql_config = $services_json["postgresql-9.1"][0]["credentials"];
+$pgsql_config = $services_json["compose-for-postgresql"][0]["credentials"];
 
 define("APP_DB_SCHEMA", $pgsql_config["name"]);
-define("APP_DB_HOST", $pgsql_config["host"]);
-define("APP_DB_PORT", $pgsql_config["port"]);
-define("APP_DB_USERNAME", $pgsql_config["user"]);
-define("APP_DB_PASSWORD", $pgsql_config["password"]);
+define("APP_DB_STRING", $pgsql_config["uri_cli"])
+//define("APP_DB_HOST", $pgsql_config["host"]);
+//define("APP_DB_PORT", $pgsql_config["port"]);
+//define("APP_DB_USERNAME", $pgsql_config["user"]);
+//define("APP_DB_PASSWORD", $pgsql_config["password"]);
 }
 
-$dbConnectionString = "host=" . APP_DB_HOST . " port=" . APP_DB_PORT . " dbname=" . APP_DB_SCHEMA . " user=" . APP_DB_USERNAME . " password=" . APP_DB_PASSWORD;
+//$dbConnectionString = "host=" . APP_DB_HOST . " port=" . APP_DB_PORT . " dbname=" . APP_DB_SCHEMA . " user=" . APP_DB_USERNAME . " password=" . APP_DB_PASSWORD;
+$dbConnectionString = APP_DB_STRING;
 $dbConnection = pg_connect($dbConnectionString);
 
 if (!$dbConnection) {
