@@ -5,8 +5,8 @@ ini_set('display_errors', 1);
 
 //postgres://admin:WUHZQQUELISSUWGO@sl-us-dal-9-portal.6.dblayer.com:22912/compose
 
-//$dsn = 'postgres://admin:WUHZQQUELISSUWGO@sl-us-dal-9-portal.6.dblayer.com:22912/compose';
-$dsn = 'pgsql:dbname=compose;user=admin;password=WUHZQQUELISSUWGO;host=sl-us-dal-9-portal.6.dblayer.com;port=22912;';
+$dsn = 'postgres://admin:WUHZQQUELISSUWGO@sl-us-dal-9-portal.6.dblayer.com:22912/compose';
+//$dsn = 'pgsql:dbname=compose;user=admin;password=WUHZQQUELISSUWGO;host=sl-us-dal-9-portal.6.dblayer.com;port=22912;';
 try{
 	// create a PostgreSQL database connection
 	$conn = new PDO($dsn);
