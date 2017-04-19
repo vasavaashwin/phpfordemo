@@ -18,7 +18,7 @@ try{
 		echo "Connected to the <strong>compose</strong> database successfully!";
 	}
 }catch (PDOException $e){
-	var_dump($e);
+//	var_dump($e);
 	// report error message
 	echo $e->getMessage(); 
 }
@@ -43,7 +43,7 @@ $statement->execute(array(
 ));		
 		
    //echo $statement->queryString;die;
-   $statement->debugDumpParams();echo '<hr>';
+  // $statement->debugDumpParams();echo '<hr>';
 
  } catch(PDOException $e) {
         echo $e->getMessage();
