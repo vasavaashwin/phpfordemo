@@ -1,9 +1,8 @@
 {
   "require": {
+    "php":"7.0.*",
     "ext-pdo": "*",
 	"ext-pgsql": "*",
-	"ext-mysql": "*",
-	"ext-mysqli": "*",
-    "ext-pdo_mysql": "*"
+    "ext-pdo_pgsql": "*"
   }
 }
