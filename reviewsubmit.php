@@ -1,19 +1,8 @@
 <?php
 //error_reporting(E_ALL);
 ini_set('display_errors', 0);
-$name=$_POST['name']; // Fetching Values from URL.
-$email=$_POST['email'];
-$number= $_POST['number']; 
-$social_profile = '';
-if(!empty($_POST['social_profile'])){
-	foreach($_POST['social_profile'] as $sprofile){
-		$social_profile= $social_profile.$sprofile.','; 	
-	}
-	
-	$social_profile = substr($social_profile,0,strlen($social_profile)-1);
-}
-
-
+$userId = $_POST['reviewUser'];
+$review_data = json_encode($_POST['data']);
 
 if(!$_ENV["VCAP_SERVICES"]){ //local dev
 
@@ -41,24 +30,21 @@ try{
 	echo $e->getMessage(); 
 }
 
-
-
 	
 	 try {	
-$statement = $conn->prepare("INSERT INTO appusers(username,
-            email,
-            mobile_number,
-            social_profile,
-            status,
-			create_date)
-    VALUES(:username, :email, :mobile_number,:social_profile,:status,NOW())  RETURNING id");
-$statement->execute(array(
-    "username" => $name,
-    "email" => $email,
-    "mobile_number" => $number,
-	"social_profile" => $social_profile,
-	"status" => "1"
-));		
+$statement = $conn->prepare("INSERT INTO user_review
+			(
+			user_id,
+            review_data
+			)
+			VALUES(
+			:user_id, 
+			:review_data
+			)  RETURNING id");
+	$statement->execute(array(
+		"user_id" => $userId,
+		"review_data" => $review_data
+	));		
 		
    //echo $statement->queryString;die;
    //$statement->debugDumpParams();echo '<hr>';
@@ -70,14 +56,14 @@ $id = $row['id'];
     }
 	
 /*
-$sql= "SELECT * FROM appusers";
+$sql= "SELECT * FROM user_review";
 $stmt = $conn->prepare($sql);
 $stmt->execute();
 $result = $stmt->fetchAll();
 */
 //print_r($result);
 	
-$result = array('success'=>true,'id'=>$id,'message'=>'Successfully register.');
+$result = array('success'=>true,'id'=>$id,'message'=>'Review submitted Successfully.');
 echo json_encode($result);
 
 ?>
